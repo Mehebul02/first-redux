@@ -2,7 +2,7 @@
 const Tasks = () => {
     return (
         <div>
-            <h1>Tasks Management system</h1>
+            <h1>This is the tasks page</h1>
         </div>
     );
 };

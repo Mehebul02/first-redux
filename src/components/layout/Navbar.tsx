@@ -1,5 +1,6 @@
 import { logo } from "@/assets/images"
 import { Link } from "react-router-dom"
+import { ModeToggle } from "../mode-toggle"
 
 const Navbar = () => {
     return (
@@ -10,8 +11,13 @@ const Navbar = () => {
                     <img src={logo} alt="logo" />
                     <h1 className="font-medium ">Redux</h1>
                 </div>
-                <Link to='/'>Tasks</Link>
-                <Link to='/users'>Users</Link>
+              <div className="space-x-4">
+              <Link to='/'>Tasks</Link>
+              <Link to='/users'>Users</Link>
+              <div>
+                <ModeToggle/>
+              </div>
+              </div>
             </nav>
         </div>
     )
