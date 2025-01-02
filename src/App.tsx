@@ -1,31 +1,33 @@
+import { Outlet } from 'react-router-dom'
 import './App.css'
-import { Button } from './components/ui/button'
-import { decrement, increment } from './redux/features/counter/counterSlice'
-import { useAppDispatch, useAppSelector } from './redux/hook'
+import Navbar from './components/layout/Navbar'
 
 function App() {
 
 
-  const dispatch = useAppDispatch()
+  // const dispatch = useAppDispatch()
 
-  const { count } = useAppSelector((state) => state.counter)
+  // const { count } = useAppSelector((state) => state.counter)
 
 
-  const handleIncrement = (amount:number) => {
-    dispatch(increment(amount))
-  }
-  const handleDecrement = (amount:number) => {
-    dispatch(decrement(amount))
-  }
+  // const handleIncrement = (amount:number) => {
+  //   dispatch(increment(amount))
+  // }
+  // const handleDecrement = (amount:number) => {
+  //   dispatch(decrement(amount))
+  // }
 
   return (
     <>
       <div>
-        <h1>Counter with redux</h1>
+        {/* <h1>Counter with redux</h1>
 
         <Button onClick={()=>handleIncrement(5)} className='bg-gray-950'>Increment</Button>
         <h1>{count}</h1>
-        <Button onClick={()=>handleDecrement(1)}>decrement</Button>
+        <Button onClick={()=>handleDecrement(1)}>decrement</Button> */}
+
+        <Navbar/>
+        <Outlet/>
       </div>
     </>
   )
