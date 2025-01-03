@@ -1,5 +1,6 @@
 import { selectFilter, selectTasks } from "@/redux/features/task/taskSlice";
 import { useAppSelector } from "@/redux/hook";
+import TasksCard from "../module/tasks/TasksCard";
 
 const Tasks = () => {
 
@@ -9,8 +10,12 @@ const Tasks = () => {
     console.log(filter);
     console.log(tasks);
     return (
-        <div>
-            <h1>This is the tasks page</h1>
+        <div className="max-w-7xl mx-auto mt-6 space-y-5">
+          {
+            tasks.map((task)=>(
+                <TasksCard task={task}/>
+            ))
+          }
         </div>
     );
 };
