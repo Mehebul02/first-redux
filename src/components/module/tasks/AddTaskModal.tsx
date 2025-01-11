@@ -22,9 +22,10 @@ import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 
 import { CalendarIcon } from "lucide-react"
-import { useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useAppDispatch } from "@/redux/hook"
 import { addTask } from "@/redux/features/task/taskSlice"
+import { ITask } from "@/types"
 // import { useForm } from "react-hook-form"
 
 export function AddTaskModal() {
@@ -32,9 +33,9 @@ export function AddTaskModal() {
 
   const dispatch = useAppDispatch()
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log('Secessfully submit', data)
-    dispatch(addTask(data))
+    dispatch(addTask(data as ITask))
   }
   return (
     <Dialog>
@@ -125,31 +126,31 @@ export function AddTaskModal() {
                 </FormItem>
               )}
             />
-           <FormField
-  control={form.control}
-  name="priority"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Priority</FormLabel>
-      <FormControl>
-        <Select
-          onValueChange={field.onChange} // Update the form value
-          value={field.value} // Bind the current form value
-        >
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Select priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="low">Low</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="high">High</SelectItem>
-          </SelectContent>
-        </Select>
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
+            <FormField
+              control={form.control}
+              name="priority"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Priority</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange} // Update the form value
+                      value={field.value} // Bind the current form value
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select priority" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="low">Low</SelectItem>
+                        <SelectItem value="medium">Medium</SelectItem>
+                        <SelectItem value="high">High</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
 
             <DialogFooter>
