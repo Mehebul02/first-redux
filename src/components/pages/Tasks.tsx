@@ -20,7 +20,7 @@ const Tasks = () => {
             <TabsTrigger onClick={()=>dispatch(updateFilter("all"))} value="all">All</TabsTrigger>
             <TabsTrigger onClick={()=>dispatch(updateFilter("low"))} value="low">Low</TabsTrigger>
             <TabsTrigger onClick={()=>dispatch(updateFilter("medium"))} value="medium">Medium</TabsTrigger>
-            <TabsTrigger onClick={()=>dispatch(updateFilter("high"))} value="high">High</TabsTrigger>
+            <TabsTrigger onClick={()=>dispatch(updateFilter(""))} value="high">High</TabsTrigger>
           </TabsList>
         </Tabs>
 
