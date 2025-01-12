@@ -1,7 +1,7 @@
 import { RootState } from "@/redux/store";
 import { ITask } from "@/types";
 import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 interface InitialState {
     tasks: ITask[],
@@ -10,14 +10,14 @@ interface InitialState {
 
 const initialState: InitialState = {
     tasks: [
-        // {
-        //     id: '1',
-        //     title: 'Task is the management of the work',
-        //     description: "Task is the management of the work",
-        //     duaDate: '2025-01-03',
-        //     isCompleted: false,
-        //     priority: "High"
-        // },
+        {
+            id: '1',
+            title: 'Task is the management of the work',
+            description: "Task is the management of the work",
+            duaDate: '2025-01-03',
+            isCompleted: false,
+            priority: "high"
+        },
         // {
         //     id: '2',
         //     title: 'Prepare presentation slides',
@@ -81,6 +81,12 @@ const taskSlice = createSlice({
 
             state.tasks.forEach((task) => task.id === action.payload ? (task.isCompleted = !task.isCompleted) : task)
 
+        },
+        deleteTask: (state, action: PayloadAction<string>) => {
+            state.tasks = state.tasks.filter((task) => task.id !== action.payload)
+        },
+        updateFilter: (state, action: PayloadAction<"High" | "Medium" | "Low">) => {
+            state.filter = action.payload
         }
     }
 })
@@ -93,5 +99,5 @@ export const selectFilter = (state: RootState) => {
     return state.todo.filter
 }
 
-export const { addTask,toggleCompleteState } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
 export default taskSlice.reducer
