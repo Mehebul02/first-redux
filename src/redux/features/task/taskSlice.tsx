@@ -5,7 +5,7 @@ import { createSlice, nanoid, PayloadAction } from "@reduxjs/toolkit";
 
 interface InitialState {
     tasks: ITask[],
-    filter: "All" | 'High' | 'Medium' | 'Low'
+    filter: "all" | 'high' | 'medium' | 'low'
 }
 
 const initialState: InitialState = {
@@ -17,49 +17,9 @@ const initialState: InitialState = {
             duaDate: '2025-01-03',
             isCompleted: false,
             priority: "high"
-        },
-        // {
-        //     id: '2',
-        //     title: 'Prepare presentation slides',
-        //     description: "Create and finalize slides for the client meeting",
-        //     duaDate: '2025-01-05',
-        //     isCompleted: false,
-        //     priority: "Medium"
-        // },
-        // {
-        //     id: '3',
-        //     title: 'Fix login page bug',
-        //     description: "Resolve the issue causing login failures for some users",
-        //     duaDate: '2025-01-07',
-        //     isCompleted: true,
-        //     priority: "High"
-        // },
-        // {
-        //     id: '4',
-        //     title: 'Team meeting',
-        //     description: "Attend the weekly sync-up with the project team",
-        //     duaDate: '2025-01-08',
-        //     isCompleted: false,
-        //     priority: "Low"
-        // },
-        // {
-        //     id: '5',
-        //     title: 'Submit monthly report',
-        //     description: "Complete and submit the financial report for December",
-        //     duaDate: '2025-01-10',
-        //     isCompleted: false,
-        //     priority: "High"
-        // },
-        // {
-        //     id: '6',
-        //     title: 'Update project documentation',
-        //     description: "Add the latest changes and features to the project docs",
-        //     duaDate: '2025-01-15',
-        //     isCompleted: false,
-        //     priority: "Medium"
-        // },
+        }
     ],
-    filter: "High"
+    filter: "all"
 }
 
 type DraftTask = Pick<ITask, 'title' | 'description' | 'duaDate' | 'priority'>
@@ -85,19 +45,35 @@ const taskSlice = createSlice({
         deleteTask: (state, action: PayloadAction<string>) => {
             state.tasks = state.tasks.filter((task) => task.id !== action.payload)
         },
-        updateFilter: (state, action: PayloadAction<"High" | "Medium" | "Low">) => {
+        updateFilter: (state, action: PayloadAction<"all" | "low" | "medium" | "high">) => {
             state.filter = action.payload
         }
     }
 })
 
 export const selectTasks = (state: RootState) => {
-    return state.todo.tasks
+
+    const filter = state.todo.filter
+
+    if (filter === 'low') {
+        return state.todo.tasks.filter((task) => task.priority === 'low')
+    } else if (filter === 'medium') {
+        return state.todo.tasks.filter((task) => task.priority === 'medium')
+    } else if (filter === 'high') {
+        return state.todo.tasks.filter((task) => task.priority === 'high')
+    } else {
+        return state.todo.tasks
+    }
+
+
+
 }
 
 export const selectFilter = (state: RootState) => {
+
+
     return state.todo.filter
 }
 
-export const { addTask, toggleCompleteState, deleteTask } = taskSlice.actions;
+export const { addTask, toggleCompleteState, deleteTask, updateFilter } = taskSlice.actions;
 export default taskSlice.reducer
