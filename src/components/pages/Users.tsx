@@ -14,13 +14,17 @@ const Users = () => {
             <div className="flex justify-end items-center gap-3">
                 <AddUser />
             </div>
-            {/* user map  */}
-            {
-                users?.map((user)=>(
-                    <UserCard user={user}/>
-                ))
 
-            }
+            <div className="grid grid-cols-3 gap-4">
+                {/* user map  */}
+                {
+                    users?.map((user) => (
+                        <UserCard user={user} />
+                    ))
+
+                }
+            </div>
+
         </div>
     );
 };
