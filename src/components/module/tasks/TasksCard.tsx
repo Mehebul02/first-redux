@@ -2,15 +2,21 @@ import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { cn } from '@/lib/utils';
 import { deleteTask, toggleCompleteState } from '@/redux/features/task/taskSlice';
+import { selectUsers } from '@/redux/features/user/userSlice';
 import { useAppDispatch } from '@/redux/hook';
 import { ITask } from '@/types';
 import { Trash2 } from 'lucide-react';
+import { useSelector } from 'react-redux';
 
 interface IProps {
     task: ITask
 }
 
 const TasksCard = ({ task }: IProps) => {
+
+    const users = useSelector(selectUsers)
+
+    const assignedUser = users.find(user=> user.id === task.assignedTo)
 
     const dispatch = useAppDispatch()
     return (
@@ -37,7 +43,10 @@ const TasksCard = ({ task }: IProps) => {
                     <Checkbox checked={task.isCompleted} onClick={()=>dispatch(toggleCompleteState(task.id))} />
                 </div>
             </div>
-            <p className='mt-5'>{task.description}</p>
+           <div>
+           <p>Assign To -{assignedUser? assignedUser.name :'No One'} </p>
+           <p className='mt-5'>{task.description}</p>
+           </div>
         </div>
 
     );
