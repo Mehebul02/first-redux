@@ -26,11 +26,13 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useAppDispatch } from "@/redux/hook"
 import { addTask } from "@/redux/features/task/taskSlice"
 import { ITask } from "@/types"
+import { useSelector } from "react-redux"
+import { selectUsers } from "@/redux/features/user/userSlice"
 // import { useForm } from "react-hook-form"
 
 export function AddTaskModal() {
   const form = useForm()
-
+  const users = useSelector(selectUsers)
   const dispatch = useAppDispatch()
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
@@ -144,6 +146,34 @@ export function AddTaskModal() {
                         <SelectItem value="low">Low</SelectItem>
                         <SelectItem value="medium">Medium</SelectItem>
                         <SelectItem value="high">High</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="assignedTo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Assign To</FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={field.onChange} // Update the form value
+                      value={field.value} // Bind the current form value
+                    >
+                      <SelectTrigger className="w-[180px]">
+                        <SelectValue placeholder="Select assign" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {
+                          users.map((user) => (
+                            <SelectItem value={user.id}>{user.name}</SelectItem>
+
+                          ))
+                        }
                       </SelectContent>
                     </Select>
                   </FormControl>
