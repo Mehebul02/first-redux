@@ -66,8 +66,9 @@ export const selectTasks = (state: RootState) => {
         return state.todo.tasks.filter((task) => task.priority === 'high')
     } else {
         return state.todo.tasks
-    }
-
+        }
+        
+            
 
 
 }

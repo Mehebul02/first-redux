@@ -1,14 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import counterReducer from './features/counter/counterSlice'
+// import counterReducer from './features/counter/counterSlice'
 import taskReducer from './features/task/taskSlice'
 import userReducer from './features/user/userSlice'
 import { baseApi } from "./api/baseApi";
 export const store = configureStore({
     reducer: {
         // counter: counterReducer,
-        // todo:taskReducer,
-        // user:userReducer
+        todo:taskReducer,
+        user:userReducer,
         [baseApi.reducerPath]: baseApi.reducer
 
     },

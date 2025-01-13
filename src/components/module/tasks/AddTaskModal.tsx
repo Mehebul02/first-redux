@@ -26,21 +26,27 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import { useAppDispatch } from "@/redux/hook"
 import { addTask } from "@/redux/features/task/taskSlice"
 import { ITask } from "@/types"
-import { useSelector } from "react-redux"
-import { selectUsers } from "@/redux/features/user/userSlice"
+// import { useSelector } from "react-redux"
+// import { selectUsers } from "@/redux/features/user/userSlice"
 import { useState } from "react"
+import { useCreateTaskMutation } from "@/redux/api/baseApi"
 // import { useForm } from "react-hook-form"
 
 export function AddTaskModal() {
 
   const [ open, setOpen] = useState(false)
   const form = useForm()
-  const users = useSelector(selectUsers)
-  const dispatch = useAppDispatch()
+  // const users = useSelector(selectUsers)
+  // const dispatch = useAppDispatch()
+
+  const [createTask, { data, isLoading, isError }] = useCreateTaskMutation()
+
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log('Secessfully submit', data)
-    dispatch(addTask(data as ITask))
+    // dispatch(addTask(data as ITask))
+    const taskData={...data, isComplete:false}
+    createTask(taskData)
     setOpen(false)
     form.reset()
   }
@@ -173,12 +179,12 @@ export function AddTaskModal() {
                         <SelectValue placeholder="Select assign" />
                       </SelectTrigger>
                       <SelectContent>
-                        {
+                        {/* {
                           users.map((user) => (
                             <SelectItem value={user.id}>{user.name}</SelectItem>
 
                           ))
-                        }
+                        } */}
                       </SelectContent>
                     </Select>
                   </FormControl>
