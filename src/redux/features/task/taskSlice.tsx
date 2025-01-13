@@ -16,16 +16,19 @@ const initialState: InitialState = {
             description: "Task is the management of the work",
             duaDate: '2025-01-03',
             isCompleted: false,
-            priority: "high"
+            priority: "high",
+            assignedTo: null
         }
     ],
     filter: "all"
 }
 
-type DraftTask = Pick<ITask, 'title' | 'description' | 'duaDate' | 'priority'>
+type DraftTask = Pick<ITask, 'title' | 'description' | 'duaDate' | 'priority' | 'assignedTo'>
 
 const createTask = (taskData: DraftTask): ITask => {
-    return { id: nanoid(), isCompleted: false, ...taskData }
+    return {...taskData , id: nanoid(), isCompleted: false, 
+        assignedTo: taskData.assignedTo ? taskData.assignedTo : null, 
+    }
 }
 
 const taskSlice = createSlice({

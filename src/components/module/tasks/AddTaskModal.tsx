@@ -28,9 +28,12 @@ import { addTask } from "@/redux/features/task/taskSlice"
 import { ITask } from "@/types"
 import { useSelector } from "react-redux"
 import { selectUsers } from "@/redux/features/user/userSlice"
+import { useState } from "react"
 // import { useForm } from "react-hook-form"
 
 export function AddTaskModal() {
+
+  const [ open, setOpen] = useState(false)
   const form = useForm()
   const users = useSelector(selectUsers)
   const dispatch = useAppDispatch()
@@ -38,9 +41,11 @@ export function AddTaskModal() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log('Secessfully submit', data)
     dispatch(addTask(data as ITask))
+    setOpen(false)
+    form.reset()
   }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline">Add Task</Button>
       </DialogTrigger>
